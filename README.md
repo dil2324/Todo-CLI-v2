@@ -1,8 +1,8 @@
 # Todo-CLI-v2
 
-Консольный менеджер задач на  Python
+Console Task Manager in Python
 
-## Функции
+## Function
 
 -add
 
@@ -15,7 +15,7 @@
 -edit
 
 -delete
-## Запуск
+## Launch
 ```bash
 
 todo cli v2.py
