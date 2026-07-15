@@ -1,9 +1,9 @@
 
 import json
 
-ACTION_1="Ошибка такого номера нет"
-INDEX="Введите индекс:"
-DONE="[Выполнено]"
+ACTION_1="Error there is no such number"
+INDEX="Enter the index:"
+DONE="[Done]"
 
 def load_tasks(filename="tasks.json"):
     try:
@@ -23,7 +23,7 @@ def add_task(text):
     
 def show_tasks():
     if not tasks:
-        print("Список задач пуст")
+        print("The task list is empty")
         return
     
     for i ,task in enumerate(tasks,start=1):
@@ -33,17 +33,17 @@ def show_tasks():
 def delete_task(index):
     if 1 <= index <= len(tasks):
         deleted_task = tasks.pop(index-1)
-        print(f"Задача удалена {deleted_task['text']}")
+        print(f"Delete task {deleted_task['text']}")
         save_tasks()
     else:
         print(ACTION_1)
 def done_task(index):
     if 1 <= index <= len(tasks):
         if tasks[index-1]["done"]:
-            print("Задача уже отмечена как выполненная")
+            print("The task has already been marked as completed")
             return
         tasks[index-1]["done"]=True
-        print(f"Задача отмечена как выполненная {tasks[index-1]['text']}")
+        print(f"The task is marked as completed {tasks[index-1]['text']}")
         save_tasks()
     else:
         print(ACTION_1)
@@ -51,11 +51,11 @@ def done_task(index):
 def undone_task(index):
     if 1 <= index <= len(tasks):
         if not tasks[index-1]["done"]:
-            print("Задача уже отмечена как невыполненная")
+            print("The task has already been marked as unfulfilled ")
             return
         
         tasks[index-1]["done"]=False
-        print(f"Задача отмечена как невыполненная {tasks[index-1]['text']}")
+        print(f"The task is marked as unfulfilled {tasks[index-1]['text']}")
         save_tasks()
     else:
         print(ACTION_1)
@@ -64,7 +64,7 @@ def edit_task(index, new_task):
     if 1 <= index <= len(tasks):
         tasks[index-1]["text"]=new_task
         save_tasks()
-        print("Задача отредактирована")
+        print("The issue has been edited")
     else:
         print(ACTION_1)
         
@@ -74,12 +74,12 @@ while True:
     action=parts[0].lower() if parts else ""
     
     if action== "add":
-        text = parts[1] if len(parts) > 1 else input("Введите задачу:")
+        text = parts[1] if len(parts) > 1 else input("Enter the task:")
         if text.strip() == "":
-            print("Ошибка задача не может быть пустой!") 
+            print("Error the task cannot be empty!") 
             continue
         add_task(text)
-        print(f"Задача добавлена {text}")       
+        print(f"Add the task {text}")       
     elif action=="show":
         show_tasks()
     elif action=="edit":
@@ -87,18 +87,18 @@ while True:
             if len(parts)>1:
                 edit_parts=parts[1].split(maxsplit=1)
                 index=int(edit_parts[0])
-                new_task=edit_parts[1] if len(edit_parts)>1 else input("Введите новую задачу:")
+                new_task=edit_parts[1] if len(edit_parts)>1 else input("Enter a new task:")
             else:
                 index=int(input(INDEX))
-                new_task=input("Введите новую задачу:")
+                new_task=input("Enter a new task:")
             if new_task.strip() == "":
-                print("Ошибка задача не может быть пустой!") 
+                print("Error the task cannot be empty!") 
                 continue
             edit_task(index, new_task)
         except ValueError:
-            print("Ошибка нужно ввести число после edit!")
+            print("Error you need to enter a number after edit!")
         except IndexError:
-            print("Ошибка нужно ввести индекс и новую задачу после edit!")
+            print("Error you need to enter the index and a new task after edit!")
         
     elif action == "delete":
         try:
@@ -108,7 +108,7 @@ while True:
                 index=int(input(INDEX))
             delete_task(index)
         except ValueError:
-            print("Ошибка нужно ввести число после delete!")
+            print("Error you need to enter a number after edit!")
     elif action == "done":
         try:
             if len(parts)>1:
@@ -117,7 +117,7 @@ while True:
                 index=int(input(INDEX))
             done_task(index)
         except ValueError:
-            print("Ошибка нужно ввести число после done!")
+            print("Error you need to enter a number after done!")
     elif action == "undone":
         try:
             if len(parts)>1:
@@ -126,10 +126,10 @@ while True:
                 index=int(input(INDEX))
             undone_task(index)
         except ValueError:
-            print("Ошибка нужно ввести число после undone!")
+            print("Error you need to enter a number after undone!")
             
     elif action == "exit":
-        print("Выход из программы")
+        print("Exiting the program")
         break
     else:
-        print("Неизвестная команда")             
+        print("Unknown team")             
